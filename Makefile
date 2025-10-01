@@ -29,7 +29,7 @@ checklinks:
 	go run cmd/generate/main.go -config config.json -out .out -hashfile .hashes -checklinks
 
 .repo/.git/config:
-	git clone https://github.com/flopp/freiburg-run.git .repo
+	git clone https://https://github.com/svengiegerich/heidelberg-run.git .repo
 
 .phony: sync
 sync: .repo/.git/config .bin/generate-linux

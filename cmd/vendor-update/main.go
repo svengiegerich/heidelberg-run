@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/flopp/freiburg-run/internal/utils"
+	"https://github.com/svengiegerich/heidelberg-run/internal/utils"
 )
 
 const (

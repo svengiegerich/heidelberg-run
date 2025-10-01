@@ -3,7 +3,7 @@ package events
 import (
 	"fmt"
 
-	"github.com/flopp/freiburg-run/internal/utils"
+	"https://github.com/svengiegerich/heidelberg-run/internal/utils"
 )
 
 type Tag struct {

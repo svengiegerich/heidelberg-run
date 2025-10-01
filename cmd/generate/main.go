@@ -7,10 +7,10 @@ import (
 	"os"
 	"time"
 
-	"github.com/flopp/freiburg-run/internal/events"
-	"github.com/flopp/freiburg-run/internal/generator"
-	"github.com/flopp/freiburg-run/internal/resources"
-	"github.com/flopp/freiburg-run/internal/utils"
+	"https://github.com/svengiegerich/heidelberg-run/internal/events"
+	"https://github.com/svengiegerich/heidelberg-run/internal/generator"
+	"https://github.com/svengiegerich/heidelberg-run/internal/resources"
+	"https://github.com/svengiegerich/heidelberg-run/internal/utils"
 )
 
 const (

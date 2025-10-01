@@ -8,7 +8,7 @@ import (
 	"time"
 
 	ical "github.com/arran4/golang-ical"
-	"github.com/flopp/freiburg-run/internal/utils"
+	"https://github.com/svengiegerich/heidelberg-run/internal/utils"
 )
 
 const (

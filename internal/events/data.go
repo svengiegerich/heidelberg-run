@@ -6,7 +6,7 @@ import (
 	"sort"
 	"time"
 
-	"https://github.com/svengiegerich/heidelberg-run/internal/utils"
+	"github.com/svengiegerich/heidelberg-run/internal/utils"
 )
 
 type OldEvents struct {

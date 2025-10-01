@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"html/template"
 
-	"https://github.com/svengiegerich/heidelberg-run/internal/utils"
+	"github.com/svengiegerich/heidelberg-run/internal/utils"
 )
 
 type Serie struct {

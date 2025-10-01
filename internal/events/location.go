@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"regexp"
 
-	"https://github.com/svengiegerich/heidelberg-run/internal/utils"
+	"github.com/svengiegerich/heidelberg-run/internal/utils"
 	"github.com/flopp/go-coordsparser"
 )
 

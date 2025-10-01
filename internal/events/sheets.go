@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"https://github.com/svengiegerich/heidelberg-run/internal/utils"
+	"github.com/svengiegerich/heidelberg-run/internal/utils"
 	"google.golang.org/api/option"
 	"google.golang.org/api/sheets/v4"
 )

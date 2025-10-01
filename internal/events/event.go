@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"https://github.com/svengiegerich/heidelberg-run/internal/utils"
+	"github.com/svengiegerich/heidelberg-run/internal/utils"
 	"github.com/google/uuid"
 )
 

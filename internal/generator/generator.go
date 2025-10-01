@@ -6,9 +6,9 @@ import (
 	"strings"
 	"time"
 
-	"https://github.com/svengiegerich/heidelberg-run/internal/events"
-	"https://github.com/svengiegerich/heidelberg-run/internal/resources"
-	"https://github.com/svengiegerich/heidelberg-run/internal/utils"
+	"github.com/svengiegerich/heidelberg-run/internal/events"
+	"github.com/svengiegerich/heidelberg-run/internal/resources"
+	"github.com/svengiegerich/heidelberg-run/internal/utils"
 )
 
 type UmamiData struct {

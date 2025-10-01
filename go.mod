@@ -1,4 +1,4 @@
-module https://github.com/svengiegerich/heidelberg-run
+module github.com/svengiegerich/heidelberg-run
 
 go 1.23.0
 

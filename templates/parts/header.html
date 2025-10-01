@@ -10,20 +10,6 @@
         <link rel="manifest" href="{{BasePath "/manifest.json"}}" />
         <meta name="theme-color" content="#4455F6">
 
-        <!-- Open Graph / Facebook -->
-        <meta property="og:type" content="website">
-        <meta property="og:url" content="{{.Canonical}}">
-        <meta property="og:title" content="{{.NiceTitle}} - heidelberg.run">
-        <meta property="og:description" content="{{.Description}}">
-        <meta property="og:image" content="{{.Image}}">
-
-        <!-- Twitter -->
-        <meta property="twitter:card" content="summary_large_image">
-        <meta property="twitter:url" content="{{.Canonical}}">
-        <meta property="twitter:title" content="{{.NiceTitle}} - heidelberg.run">
-        <meta property="twitter:description" content="{{.Description}}">
-        <meta property="twitter:image" content="{{.Image}}">
-
         {{range .CssFiles}}
         <link rel="stylesheet" href="{{BasePath .}}"/>
         {{end}}
@@ -55,9 +41,6 @@
     </div>
     <div id="navbarMain" class="navbar-menu">
         <div class="navbar-start">
-            <a class="navbar-item {{if eq .Nav "club"}}is-active{{end}}" href="{{BasePath "/club/"}}">
-                Club
-            </a>
             <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link {{if eq .Nav "events"}}is-active{{end}}" href="{{BasePath "/"}}">
                     Veranstaltungen

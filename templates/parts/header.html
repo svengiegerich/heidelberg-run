@@ -10,24 +10,17 @@
         <link rel="manifest" href="{{BasePath "/manifest.json"}}" />
         <meta name="theme-color" content="#4455F6">
 
-        {{if eq .Nav "parkrun"}}
-        <link rel="me" href="https://freiburg.social/@dietenbachparkrun" />
-        {{else}}
-        <link rel="me" href="https://freiburg.social/@flopp" />
-        <link rel="me" href="https://freiburg.social/@freiburg_run"/>
-        {{end}}
-
         <!-- Open Graph / Facebook -->
         <meta property="og:type" content="website">
         <meta property="og:url" content="{{.Canonical}}">
-        <meta property="og:title" content="{{.NiceTitle}} - freiburg.run">
+        <meta property="og:title" content="{{.NiceTitle}} - heidelberg.run">
         <meta property="og:description" content="{{.Description}}">
         <meta property="og:image" content="{{.Image}}">
 
         <!-- Twitter -->
         <meta property="twitter:card" content="summary_large_image">
         <meta property="twitter:url" content="{{.Canonical}}">
-        <meta property="twitter:title" content="{{.NiceTitle}} - freiburg.run">
+        <meta property="twitter:title" content="{{.NiceTitle}} - heidelberg.run">
         <meta property="twitter:description" content="{{.Description}}">
         <meta property="twitter:image" content="{{.Image}}">
 
@@ -41,19 +34,13 @@
 <nav class="navbar is-fixed-top is-link">
     <div class="navbar-brand">
         <a class="navbar-item" style="padding-left:1px; padding-top: 1px; padding-bottom: 1px;" href="/">
-            <img style="height: 48px; max-height:48px" src="{{BasePath "images/freiburg-run-new.svg"}}" alt="freiburg.run logo">
+            <img style="height: 48px; max-height:48px" src="{{BasePath "images/freiburg-run-new.svg"}}" alt="heidelberg.run logo">
         </a>
         <a class="navbar-item is-size-4 is-uppercase has-text-weight-bold" href="{{BasePath "/"}}">
-            freiburg.run
+            heidelberg.run
         </a>
 
         <span class="is-flex is-flex-grow-1 is-flex-direction-row-reverse p-0 is-hidden-desktop">
-            <a class="navbar-item no-external" href="https://freiburg.social/@freiburg_run" target="_blank">
-                <span class="icon"><i class="mastodon-icon"></i></span>
-            </a>
-            <a class="navbar-item no-external" href="https://www.instagram.com/freiburg.run/" target="_blank">
-                <span class="icon"><i class="insta-icon"></i></span>
-            </a>
             <a class="navbar-item no-external" href="{{.FeedbackFormUrl}}" target="_blank">
                 <span class="icon"><i class="feedback-icon"></i></span>
             </a>
@@ -103,7 +90,7 @@
                 Shops
             </a>
 
-            <a class="navbar-item {{if eq .Nav "parkrun"}}is-active{{end}}" href="{{BasePath "dietenbach-parkrun.html"}}">
+            <a class="navbar-item {{if eq .Nav "parkrun"}}is-active{{end}}" href="{{BasePath "bahnstadtpromenade-parkrun.html"}}">
                 parkrun
             </a>
 
@@ -125,12 +112,6 @@
             </div>
             <a class="navbar-item is-hidden-touch no-external" href="{{.FeedbackFormUrl}}" target="_blank">
                 <span class="icon"><i class="feedback-icon"></i></span>
-            </a>
-            <a class="navbar-item is-hidden-touch no-external" href="https://www.instagram.com/freiburg.run/" target="_blank">
-                <span class="icon"><i class="insta-icon"></i></span>
-            </a>
-            <a class="navbar-item is-hidden-touch no-external" href="https://freiburg.social/@freiburg_run" target="_blank">
-                <span class="icon"><i class="mastodon-icon"></i></span>
             </a>
         </div>
     </div>

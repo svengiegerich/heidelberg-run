@@ -32,11 +32,11 @@ func TestUrlJoin(t *testing.T) {
 		part     string
 		expected string
 	}{
-		{"https://freiburg.run", "tags.html", "https://freiburg.run/tags.html"},
-		{"https://freiburg.run/", "tags.html", "https://freiburg.run//tags.html"},
-		{"https://freiburg.run", "/tags.html", "https://freiburg.run//tags.html"},
-		{"https://freiburg.run", "", "https://freiburg.run"},
-		{"https://freiburg.run", "/", "https://freiburg.run//"},
+		{"https://heidelberg.run", "tags.html", "https://heidelberg.run/tags.html"},
+		{"https://heidelberg.run/", "tags.html", "https://heidelberg.run//tags.html"},
+		{"https://heidelberg.run", "/tags.html", "https://heidelberg.run//tags.html"},
+		{"https://heidelberg.run", "", "https://heidelberg.run"},
+		{"https://heidelberg.run", "/", "https://heidelberg.run//"},
 		{"http://example.com", "foo/bar", "http://example.com/foo/bar"},
 		{"http://example.com/", "foo/bar", "http://example.com//foo/bar"},
 	}

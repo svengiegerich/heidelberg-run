@@ -1,6 +1,6 @@
 all:
 	@echo "make backup     -> download data to backup folder"
-	@echo "make sync       -> build and upload to freiburg.run"
+	@echo "make sync       -> build and upload to heidelberg.run"
 	@echo "make run-script -> sync & run remote script"
 
 .phony: backup
@@ -34,13 +34,13 @@ checklinks:
 .phony: sync
 sync: .repo/.git/config .bin/generate-linux
 	(cd .repo && git pull --quiet)
-	rsync -a scripts/cronjob.sh .bin/generate-linux echeclus.uberspace.de:packages/freiburg.run/
-	rsync -a .repo/ echeclus.uberspace.de:packages/freiburg.run/repo
-	ssh echeclus.uberspace.de chmod +x packages/freiburg.run/cronjob.sh packages/freiburg.run/generate-linux
+	rsync -a scripts/cronjob.sh .bin/generate-linux echeclus.uberspace.de:packages/heidelberg.run/
+	rsync -a .repo/ echeclus.uberspace.de:packages/heidelberg.run/repo
+	ssh echeclus.uberspace.de chmod +x packages/heidelberg.run/cronjob.sh packages/heidelberg.run/generate-linux
 
 .phony: run-script
 run-script: sync
-	ssh echeclus.uberspace.de packages/freiburg.run/cronjob.sh
+	ssh echeclus.uberspace.de packages/heidelberg.run/cronjob.sh
 
 .phony: lint
 lint:

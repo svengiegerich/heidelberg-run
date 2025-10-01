@@ -27,9 +27,9 @@ func CreateEventCalendar(event *Event, now time.Time, baseUrl utils.Url, calenda
 
 	// ical/ics data
 	cal := ical.NewCalendar()
-	cal.SetProductId("Laufevents - freiburg.run")
+	cal.SetProductId("Laufevents - heidelberg.run")
 	cal.SetMethod(ical.MethodPublish)
-	cal.SetDescription("Liste aller Laufevents im Raum Freiburg (50km Umkreis)")
+	cal.SetDescription("Liste aller Laufevents im Raum Heidelberg (und Umkreis)")
 	///cal.SetUrl(calendarUrl)
 	uid, err := event.GetUUID()
 	if err != nil {
@@ -53,7 +53,7 @@ func CreateEventCalendar(event *Event, now time.Time, baseUrl utils.Url, calenda
 		url.QueryEscape(event.Name.Orig),
 		event.Time.From.Format(dateFormatUtc),
 		endPlusOneDay.Format(dateFormatUtc),
-		url.QueryEscape(fmt.Sprintf(`%s<br>Infos: <a href="%s">freiburg.run</a>`, event.Details, infoUrl)),
+		url.QueryEscape(fmt.Sprintf(`%s<br>Infos: <a href="%s">heidelberg.run</a>`, event.Details, infoUrl)),
 		url.QueryEscape(event.Location.NameNoFlag()),
 	)
 
@@ -62,9 +62,9 @@ func CreateEventCalendar(event *Event, now time.Time, baseUrl utils.Url, calenda
 
 func CreateCalendar(eventsList []*Event, now time.Time, baseUrl utils.Url, calendarUrl string, path string) error {
 	cal := ical.NewCalendar()
-	cal.SetProductId("Laufevents - freiburg.run")
+	cal.SetProductId("Laufevents - heidelberg.run")
 	cal.SetMethod(ical.MethodPublish)
-	cal.SetDescription("Liste aller Laufevents im Raum Freiburg (50km Umkreis)")
+	cal.SetDescription("Liste aller Laufevents im Raum Heidelberg (50km Umkreis)")
 	cal.SetUrl(calendarUrl)
 
 	for _, e := range eventsList {

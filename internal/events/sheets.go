@@ -444,7 +444,7 @@ func fetchParkrunEvents(config SheetsConfigData, srv *sheets.Service, today time
 		}
 
 		if data.Results != "" {
-			data.Results = fmt.Sprintf("https://www.parkrun.com.de/dietenbach/results/%s", data.Results)
+			data.Results = fmt.Sprintf("https://www.parkrun.com.de/bahnstadtpromenade/results/%s", data.Results)
 		}
 
 		// determine is this is for the current week (but only for "real" parkrun events with index)

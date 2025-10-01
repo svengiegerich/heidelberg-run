@@ -1,6 +1,6 @@
 {
-    "name": "freiburg.run",
-    "short_name": "freiburg.run",
+    "name": "heidelberg.run",
+    "short_name": "heidelberg.run",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
@@ -15,6 +15,6 @@
     ],
     "theme_color": "#4455F6",
     "background_color": "#4455F6",
-    "start_url": "https://freiburg.run",
+    "start_url": "https://heidelberg.run",
     "display": "standalone"
 }

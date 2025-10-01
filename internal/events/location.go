@@ -38,7 +38,7 @@ func CreateLocation(locationS, coordinatesS string) Location {
 	if err == nil {
 		coordinates = fmt.Sprintf("%.6f,%.6f", lat, lon)
 
-		// Freiburg
+		// Heidelberg
 		lat0 := 47.996090
 		lon0 := 7.849400
 		d, b := utils.DistanceBearing(lat0, lon0, lat, lon)
@@ -82,11 +82,11 @@ func (loc Location) HasGeo() bool {
 }
 
 func (loc Location) Dir() string {
-	return fmt.Sprintf(`%s %s von Freiburg`, loc.Distance, loc.Direction)
+	return fmt.Sprintf(`%s %s von Heidelberg`, loc.Distance, loc.Direction)
 }
 
 func (loc Location) DirLong() string {
-	return fmt.Sprintf(`%s %s von Freiburg Zentrum`, loc.Distance, loc.Direction)
+	return fmt.Sprintf(`%s %s von Heidelberg Zentrum`, loc.Distance, loc.Direction)
 }
 
 func (loc Location) GoogleMaps() string {

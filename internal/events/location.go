@@ -39,8 +39,8 @@ func CreateLocation(locationS, coordinatesS string) Location {
 		coordinates = fmt.Sprintf("%.6f,%.6f", lat, lon)
 
 		// Heidelberg
-		lat0 := 47.996090
-		lon0 := 7.849400
+		lat0 := 49.3988
+		lon0 := 8.6724
 		d, b := utils.DistanceBearing(lat0, lon0, lat, lon)
 		distance = fmt.Sprintf("%.1fkm", d)
 		direction = utils.ApproxDirection(b)

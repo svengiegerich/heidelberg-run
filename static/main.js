@@ -38,7 +38,7 @@ const parseGeo = function (s) {
 };
 
 const loadMap = function (id) {
-    var map = L.map(id, {gestureHandling: true}).setView([48.000548, 7.804842], 15);
+    var map = L.map(id, {gestureHandling: true}).setView([49.410038, 8.692926], 15);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -103,29 +103,29 @@ const loadMap = function (id) {
     const items = [{
         label: "Veranstaltung",
         type: "image",
-        url: "/images/marker-icon.png",
+        url: "images/marker-icon.png",
     },{
         label: "vergangene Veranstaltung",
         type: "image",
-        url: "/images/marker-grey-icon.png",
+        url: "images/marker-grey-icon.png",
     },{
         label: "Lauftreff",
         type: "image",
-        url: "/images/marker-red-icon.png",
+        url: "images/marker-red-icon.png",
     },{
         label: "Lauf-Shop",
         type: "image",
-        url: "/images/marker-green-icon.png",
+        url: "images/marker-green-icon.png",
     }];
     items.push(
         {
             label: "25km um Heidelberg",
             type: "image",
-            url: "/images/circle-small.png"
+            url: "images/circle-small.png"
         }, {
             label: "50km um Heidelberg",
             type: "image",
-            url: "/images/circle-big.png"
+            url: "images/circle-big.png"
         }
     );
     const legend = L.control.Legend({
@@ -161,11 +161,11 @@ const loadParkrunMap = function (id) {
 };
 
 var load_marker = function (color) {
-    let url = "/images/marker-icon.png";
-    let url2x = "/images/marker-icon-2x.png";
+    let url = "images/marker-icon.png";
+    let url2x = "images/marker-icon-2x.png";
     if (color !== "") {
-        url = "/images/marker-" + color + "-icon.png";
-        url2x = "/images/marker-" + color + "-icon-2x.png";
+        url = "images/marker-" + color + "-icon.png";
+        url2x = "images/marker-" + color + "-icon-2x.png";
     }
     let options = {
         iconAnchor: [12, 41],
@@ -174,7 +174,7 @@ var load_marker = function (color) {
         iconUrl: url,
         popupAnchor: [1, -34],
         shadowSize: [41, 41],
-        shadowUrl: "/images/marker-shadow.png",
+        shadowUrl: "images/marker-shadow.png",
         tooltipAnchor: [16, -28],
     };
     return L.icon(options);

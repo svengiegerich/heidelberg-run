@@ -1,6 +1,3 @@
-all:
-	@echo "make sync       -> build and upload to heidelberg.run"
-
 .phony: update-vendor
 update-vendor:
 	@go run cmd/vendor-update/main.go -dir external-files
@@ -14,7 +11,7 @@ update-vendor:
 .phony: build
 build:
 	rm -rf .out
-	go run cmd/generate/main.go -config config.json -out .out -hashfile .hashes
+	go run cmd/generate/main.go -config config.json -out .out -basepath $(PWD)/.out -hashfile .hashes
 
 .phony: checklinks
 checklinks:

@@ -421,13 +421,6 @@ func (g Generator) Generate(eventsData events.Data) error {
 		return fmt.Errorf("render subpage %q: %w", "impressum.html", err)
 	}
 
-	if err := renderSubPage("support.html", "support.html", "support", "support", "Allgemein",
-		"heidelberg.run unterstützen",
-		"Möglichkeiten heidelberg.run zu unterstützen",
-		breadcrumbsInfo); err != nil {
-		return fmt.Errorf("render subpage %q: %w", "support.html", err)
-	}
-
 	if err := renderSubPage("404.html", "404.html", "404", "404", "",
 		"404 - Seite nicht gefunden :(",
 		"Fehlerseite von heidelberg.run",

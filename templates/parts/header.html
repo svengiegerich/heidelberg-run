@@ -20,7 +20,7 @@
 <nav class="navbar is-fixed-top is-link">
     <div class="navbar-brand">
         <a class="navbar-item" style="padding-left:1px; padding-top: 1px; padding-bottom: 1px;" href="/">
-            <img style="height: 48px; max-height:48px" src="{{BasePath "images/freiburg-run-new.svg"}}" alt="heidelberg.run logo">
+            <img style="height: 48px; max-height:48px" src="{{BasePath "images/heidelberg-run.svg"}}" alt="heidelberg.run logo">
         </a>
         <a class="navbar-item is-size-4 is-uppercase has-text-weight-bold" href="{{BasePath "/"}}">
             heidelberg.run
@@ -59,7 +59,7 @@
                         Karte
                     </a>
                     <hr class="navbar-divider has-background-link has-text-white">
-                    <a class="navbar-item has-background-link has-text-white" href="{{.FeedbackFormUrl}}" target="_blank">
+                    <a class="navbar-item has-background-link has-text-white" href="https://docs.google.com/forms/d/e/1FAIpQLScJyKcArCSNpUnqetfbkB1xNyTiLKzteaT6gi7BPKt9ly7y6Q/viewform" target="_blank">
                         Neue Veranstaltung melden
                     </a>
                 </div>
@@ -82,9 +82,6 @@
                     Infos
                 </a>
                 <div class="navbar-dropdown has-background-link has-text-white  is-boxed">
-                    <a class="navbar-item has-background-link has-text-white {{if eq .Nav "support"}}is-active{{end}}" href="{{BasePath "support.html"}}">
-                        Unterstützen
-                    </a>
                     <a class="navbar-item has-background-link has-text-white {{if eq .Nav "support"}}is-active{{end}}" href="{{BasePath "impressum.html"}}">
                         Impressum
                     </a>

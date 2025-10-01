@@ -1,5 +1,43 @@
 {{template "header.html" .}}
 
-TODO: Add information
+<section class="section">
+    <div class="container is-max-desktop">
+        <div class="content">
+            <figure class="image is-square" style="width: 20em">
+                <img src="{{BasePath "images/heidelberg-run-blue.svg"}}" />
+            </figure>
+
+            <h1>Warum diese Webseite?</h1>
+            <p>
+                Oft sind viele Leute nicht über lokale Laufveranstaltungen informiert.
+                Meist sind nur die ganz großen Events, wie z.B. der Heidelberger Halbmarathon, bekannt.
+                Dabei gibt es ein vielfältiges Angebot von ganz unterschiedlichen Veranstaltungen: kleine Dorfläufe, naturnahe Trail-Running-Events, kompetitive Cross-Läufe - für jeden ist etwas Passendes dabei.
+                Leider listen die großen Laufkalender-Plattformen (runme & co.) nur wenige dieser lokalen Veranstaltungen, oder die Informationen sind unvollständig oder veraltet.
+            </p>
+
+            <!-- fake "links" header to accomodate for fixed nav -->
+            <h2 id="links" style="display: block; position: relative; top: -120px; visibility: hidden;"></h2>
+            <h2 id="links2">Links</h2>
+            <p>
+                Links zu Webseiten der Region,
+            </p>
+            <ul>
+                <li><a href="https://leichtathletik.athletics-web.info/" target="_blank">BLV Kreis Rhein-Neckar</a></li>
+                <li><a href="https://ladv.de/baden/ausschreibungen" target="_blank">Ausschreibungen des Landesverbands Baden</a></li>
+            </ul>
+
+            <h2>Technisches & Dank</h2>
+            <p>
+                <strong>heidelberg.run</strong> existiert nur dank dem Projekt
+                <a href="https://freiburg.run" target="_blank">freiburg.run</a>
+                von Florian Pigorsch, der den Quellcode als Open Source
+                veröffentlicht hat. Dadurch war es möglich eine ähnliche Seite
+                für die Region Heidelberg zu erstellen.
+
+                Für weitere Infos schaut mal in Freiburg vorbei!
+            </p>
+        </div>
+    </div>
+</section>
 
 {{template "footer.html" .}}

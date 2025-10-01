@@ -30,7 +30,7 @@ jobs:
       with:
           go-version: '1.24'
     - name: Build
-      run: 	go run cmd/generate/main.go -config config.json -out .out -hashfile .hashes
+      run: 	go run cmd/generate/main.go -config config.json -out .out -base-path heidelberg-run/ -hashfile .hashes
     - name: Upload static files as artifact
       id: deployment
       uses: actions/upload-pages-artifact@v3

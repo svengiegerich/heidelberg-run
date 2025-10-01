@@ -3,7 +3,12 @@ name: Publish to GitHub Pages
 on:
   push:
     branches: [ "main" ]
-  pull_request:
+   workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   build:

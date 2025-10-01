@@ -140,13 +140,7 @@ func createHtaccess(data events.Data, outDir utils.Path) error {
 	destination.WriteString("ErrorDocument 404 /404.html\n")
 	destination.WriteString("Redirect /parkrun /bahnstadtpromenade-parkrun.html\n")
 	destination.WriteString("Redirect /groups.html /lauftreffs.html\n")
-	destination.WriteString("Redirect /event/2024-32-teninger-allmendlauf.html?back=event /event/2024-32-teninger-allmendlauf.html\n")
-	destination.WriteString("Redirect /event/bahnstadtpromenade-parkrun.html /group/dietenbach-parkrun.html\n")
-	destination.WriteString("Redirect /event/dreilaendergarten-parkrun.html /group/dreilaendergarten-parkrun.html\n")
-	destination.WriteString("Redirect /tag/serie-intersport-denzer-cup-2024.html /serie/intersport-denzer-cup-2024.html\n")
-	destination.WriteString("Redirect /event/2023-4-crosslauf-am-opfinger-see.html /event/2024-4-crosslauf-am-opfinger-see.html\n")
-	destination.WriteString("Redirect /tag/2023.html /events-old-2023.html\n")
-	destination.WriteString("Redirect /tag/2024.html /events-old-2024.html\n")
+	destination.WriteString("Redirect /event/bahnstadtpromenade-parkrun.html /group/bahnstadtpromenade-parkrun.html\n")
 	destination.WriteString("Redirect /tag/2025.html /events-old.html\n")
 	destination.WriteString("Redirect /tag/2026.html /\n")
 
@@ -391,14 +385,7 @@ func (g Generator) Generate(eventsData events.Data) error {
 		breadcrumbsShops); err != nil {
 		return fmt.Errorf("render shops page: %w", err)
 	}
-
-	if err := renderSubPage("dietenbach-parkrun.html", "dietenbach-parkrun.html", "dietenbach-parkrun", "parkrun", "Allgemein",
-		"Dietenbach parkrun",
-		"Vollständige Liste aller Ergebnisse, Laufberichte und Fotogalerien des 'Dietenbach parkrun' im Freiburger Dietenbachpark.",
-		breadcrumbsBase); err != nil {
-		return fmt.Errorf("render subpage %q: %w", "dietenbach-parkrun.html", err)
-	}
-
+	
 	if err := renderPage("series.html", "series.html", "series", "series", "Serien",
 		"Lauf-Serien",
 		"Liste aller Serien von Laufveranstaltungen, Lauf-Wettkämpfen, Volksläufen im Raum Heidelberg",
@@ -448,11 +435,7 @@ func (g Generator) Generate(eventsData events.Data) error {
 		return fmt.Errorf("render subpage %q: %w", "404.html", err)
 	}
 
-	// Special rendering of parkrun page for wordpress
 	data := TemplateData{commondata, "", "", "", "", breadcrumbsBase, "/"}
-	if err := utils.ExecuteTemplateNoMinify("dietenbach-parkrun-wordpress", g.out.Join("dietenbach-parkrun-wordpress.html"), data.BasePath, data); err != nil {
-		return fmt.Errorf("render wordpress template: %w", err)
-	}
 
 	// Render old events lists
 	oldYearsLinks := make(map[string]*utils.Link)

@@ -1,12 +1,5 @@
 all:
-	@echo "make backup     -> download data to backup folder"
 	@echo "make sync       -> build and upload to heidelberg.run"
-	@echo "make run-script -> sync & run remote script"
-
-.phony: backup
-backup:
-	@mkdir -p backup-data
-	@go run cmd/backup/main.go -config config.json -output backup-data/$(shell date +%Y-%m-%d).ods
 
 .phony: update-vendor
 update-vendor:
@@ -30,17 +23,6 @@ checklinks:
 
 .repo/.git/config:
 	git clone https://github.com/svengiegerich/heidelberg-run.git .repo
-
-.phony: sync
-sync: .repo/.git/config .bin/generate-linux
-	(cd .repo && git pull --quiet)
-	rsync -a scripts/cronjob.sh .bin/generate-linux echeclus.uberspace.de:packages/heidelberg.run/
-	rsync -a .repo/ echeclus.uberspace.de:packages/heidelberg.run/repo
-	ssh echeclus.uberspace.de chmod +x packages/heidelberg.run/cronjob.sh packages/heidelberg.run/generate-linux
-
-.phony: run-script
-run-script: sync
-	ssh echeclus.uberspace.de packages/heidelberg.run/cronjob.sh
 
 .phony: lint
 lint:

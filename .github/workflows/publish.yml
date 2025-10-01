@@ -12,7 +12,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Create config.json
       run: | 
-          cat <<EOF > secrets.json
+          cat <<EOF > config.json
           {
             "sheet_id": "${{ secrets.SHEET_ID }}",
             "api_key": "${{ secrets.GOOGLE_API_KEY }}"

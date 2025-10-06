@@ -10,6 +10,13 @@
         <link rel="manifest" href="{{BasePath "/manifest.json"}}" />
         <meta name="theme-color" content="#4455F6">
 
+        <!-- Open Graph -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="{{.Canonical}}">
+        <meta property="og:title" content="{{.NiceTitle}} - heidelberg.run">
+        <meta property="og:description" content="{{.Description}}">
+        <meta property="og:image" content="{{.Image}}">
+
         {{range .CssFiles}}
         <link rel="stylesheet" href="{{BasePath .}}"/>
         {{end}}

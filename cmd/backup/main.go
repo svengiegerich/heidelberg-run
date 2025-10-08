@@ -7,7 +7,7 @@ import (
 	"io"
 	"os"
 
-	"github.com/flopp/freiburg-run/internal/config"
+	"github.com/svengiegerich/heidelberg-run/internal/config"
 	"google.golang.org/api/drive/v3"
 	"google.golang.org/api/option"
 )

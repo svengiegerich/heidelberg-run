@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/svengiegerich/svengiegerich-run/internal/config"
+	"github.com/svengiegerich/heidelberg-run/internal/config"
 	"github.com/svengiegerich/heidelberg-run/internal/events"
 	"github.com/svengiegerich/heidelberg-run/internal/resources"
 	"github.com/svengiegerich/heidelberg-run/internal/utils"

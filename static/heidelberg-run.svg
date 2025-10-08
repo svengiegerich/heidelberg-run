@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="title desc">
+  <title id="title">HEIDELBERG.RUN transparent logo</title>
+  <desc id="desc">Minimalist square logo with transparent background, single white square border and stacked white text: HEIDEL / BERG / .RUN</desc>
+  <defs>
+    <style>
+      .frame { fill:none; stroke:#ffffff; stroke-width:36; }
+      .word { fill:#ffffff; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; font-weight: 800; letter-spacing: 4px; }
+    </style>
+  </defs>
+
+  <!-- White frame (square corners) -->
+  <rect class="frame" x="70" y="70" width="884" height="884"/>
+
+  <!-- Text -->
+  <g text-anchor="middle">
+    <text class="word" x="512" y="430" font-size="170">HEIDEL</text>
+    <text class="word" x="512" y="600" font-size="170">BERG</text>
+    <text class="word" x="512" y="770" font-size="170">.RUN</text>
+  </g>
+</svg>

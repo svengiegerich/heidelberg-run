@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"regexp"
 
-	"github.com/flopp/freiburg-run/internal/utils"
+	"github.com/svengiegerich/heidelberg-run/internal/utils"
 	"github.com/flopp/go-coordsparser"
 )
 
@@ -38,9 +38,9 @@ func CreateLocation(locationS, coordinatesS string) Location {
 	if err == nil {
 		coordinates = fmt.Sprintf("%.6f,%.6f", lat, lon)
 
-		// Freiburg
-		lat0 := 47.996090
-		lon0 := 7.849400
+		// Heidelberg
+		lat0 := 49.3988
+		lon0 := 8.6724
 		d, b := utils.DistanceBearing(lat0, lon0, lat, lon)
 		distance = fmt.Sprintf("%.1fkm", d)
 		direction = utils.ApproxDirection(b)
@@ -82,11 +82,11 @@ func (loc Location) HasGeo() bool {
 }
 
 func (loc Location) Dir() string {
-	return fmt.Sprintf(`%s %s von Freiburg`, loc.Distance, loc.Direction)
+	return fmt.Sprintf(`%s %s von Heidelberg`, loc.Distance, loc.Direction)
 }
 
 func (loc Location) DirLong() string {
-	return fmt.Sprintf(`%s %s von Freiburg Zentrum`, loc.Distance, loc.Direction)
+	return fmt.Sprintf(`%s %s von Heidelberg Zentrum`, loc.Distance, loc.Direction)
 }
 
 func (loc Location) GoogleMaps() string {

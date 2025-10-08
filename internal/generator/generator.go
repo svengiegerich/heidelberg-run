@@ -6,9 +6,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/flopp/freiburg-run/internal/events"
-	"github.com/flopp/freiburg-run/internal/resources"
-	"github.com/flopp/freiburg-run/internal/utils"
+	"github.com/svengiegerich/heidelberg-run/internal/events"
+	"github.com/svengiegerich/heidelberg-run/internal/resources"
+	"github.com/svengiegerich/heidelberg-run/internal/utils"
 )
 
 type UmamiData struct {
@@ -46,10 +46,7 @@ func (t *TemplateData) SetNameLink(name, link string, baseBreakcrumbs utils.Brea
 }
 
 func (t TemplateData) Image() string {
-	if t.Nav == "parkrun" {
-		return "https://freiburg.run/images/parkrun.png"
-	}
-	return "https://freiburg.run/images/512.png"
+	return "https://heidelberg.run/images/512.png"
 }
 
 func (t TemplateData) NiceTitle() string {
@@ -141,15 +138,9 @@ func createHtaccess(data events.Data, outDir utils.Path) error {
 	defer destination.Close()
 
 	destination.WriteString("ErrorDocument 404 /404.html\n")
-	destination.WriteString("Redirect /parkrun /dietenbach-parkrun.html\n")
+	destination.WriteString("Redirect /parkrun /bahnstadtpromenade-parkrun.html\n")
 	destination.WriteString("Redirect /groups.html /lauftreffs.html\n")
-	destination.WriteString("Redirect /event/2024-32-teninger-allmendlauf.html?back=event /event/2024-32-teninger-allmendlauf.html\n")
-	destination.WriteString("Redirect /event/dietenbach-parkrun.html /group/dietenbach-parkrun.html\n")
-	destination.WriteString("Redirect /event/dreilaendergarten-parkrun.html /group/dreilaendergarten-parkrun.html\n")
-	destination.WriteString("Redirect /tag/serie-intersport-denzer-cup-2024.html /serie/intersport-denzer-cup-2024.html\n")
-	destination.WriteString("Redirect /event/2023-4-crosslauf-am-opfinger-see.html /event/2024-4-crosslauf-am-opfinger-see.html\n")
-	destination.WriteString("Redirect /tag/2023.html /events-old-2023.html\n")
-	destination.WriteString("Redirect /tag/2024.html /events-old-2024.html\n")
+	destination.WriteString("Redirect /event/bahnstadtpromenade-parkrun.html /group/bahnstadtpromenade-parkrun.html\n")
 	destination.WriteString("Redirect /tag/2025.html /events-old.html\n")
 	destination.WriteString("Redirect /tag/2026.html /\n")
 
@@ -312,7 +303,6 @@ func (g Generator) Generate(eventsData events.Data) error {
 
 	sitemap := utils.CreateSitemap(g.baseUrl)
 	sitemap.AddCategory("Allgemein")
-	sitemap.AddCategory("Club")
 	sitemap.AddCategory("Laufveranstaltungen")
 	sitemap.AddCategory("Vergangene Laufveranstaltungen")
 	sitemap.AddCategory("Kategorien")
@@ -320,7 +310,7 @@ func (g Generator) Generate(eventsData events.Data) error {
 	sitemap.AddCategory("Lauftreffs")
 	sitemap.AddCategory("Lauf-Shops")
 
-	breadcrumbsBase := utils.InitBreadcrumbs(utils.CreateLink("freiburg.run", "/"))
+	breadcrumbsBase := utils.InitBreadcrumbs(utils.CreateLink("heidelberg.run", "/"))
 	breadcrumbsEvents := breadcrumbsBase.Push(utils.CreateLink("Laufveranstaltungen", "/"))
 	breadcrumbsTags := breadcrumbsEvents.Push(utils.CreateLink("Kategorien", "/tags.html"))
 	breadcrumbsSeries := breadcrumbsEvents.Push(utils.CreateLink("Serien", "/series.html"))
@@ -369,43 +359,36 @@ func (g Generator) Generate(eventsData events.Data) error {
 	}
 
 	if err := renderPage("", "index.html", "events", "events", "Laufveranstaltungen",
-		"Laufveranstaltungen im Raum Freiburg",
-		"Liste von Laufveranstaltungen, Lauf-Wettkämpfen, Volksläufen im Raum Freiburg",
+		"Laufveranstaltungen im Raum Heidelberg",
+		"Liste von Laufveranstaltungen, Lauf-Wettkämpfen, Volksläufen im Raum Heidelberg",
 		breadcrumbsEvents); err != nil {
 		return fmt.Errorf("render index page: %w", err)
 	}
 
 	if err := renderPage("tags.html", "tags.html", "tags", "tags", "Kategorien",
 		"Kategorien",
-		"Liste aller Kategorien von Laufveranstaltungen, Lauf-Wettkämpfen, Volksläufen im Raum Freiburg",
+		"Liste aller Kategorien von Laufveranstaltungen, Lauf-Wettkämpfen, Volksläufen im Raum Heidelberg",
 		breadcrumbsTags); err != nil {
 		return fmt.Errorf("render tags page: %w", err)
 	}
 
 	if err := renderPage("lauftreffs.html", "lauftreffs.html", "groups", "groups", "Lauftreffs",
-		"Lauftreffs im Raum Freiburg",
-		"Liste von Lauftreffs, Laufgruppen, Lauf-Trainingsgruppen im Raum Freiburg",
+		"Lauftreffs im Raum Heidelberg",
+		"Liste von Lauftreffs, Laufgruppen, Lauf-Trainingsgruppen im Raum Heidelberg",
 		breadcrumbsGroups); err != nil {
 		return fmt.Errorf("render groups page: %w", err)
 	}
 
 	if err := renderPage("shops.html", "shops.html", "shops", "shops", "Lauf-Shops",
-		"Lauf-Shops im Raum Freiburg",
-		"Liste von Lauf-Shops und Einzelhandelsgeschäften mit Laufschuh-Auswahl im Raum Freiburg",
+		"Lauf-Shops im Raum Heidelberg",
+		"Liste von Lauf-Shops und Einzelhandelsgeschäften mit Laufschuh-Auswahl im Raum Heidelberg",
 		breadcrumbsShops); err != nil {
 		return fmt.Errorf("render shops page: %w", err)
 	}
-
-	if err := renderSubPage("dietenbach-parkrun.html", "dietenbach-parkrun.html", "dietenbach-parkrun", "parkrun", "Allgemein",
-		"Dietenbach parkrun",
-		"Vollständige Liste aller Ergebnisse, Laufberichte und Fotogalerien des 'Dietenbach parkrun' im Freiburger Dietenbachpark.",
-		breadcrumbsBase); err != nil {
-		return fmt.Errorf("render subpage %q: %w", "dietenbach-parkrun.html", err)
-	}
-
+	
 	if err := renderPage("series.html", "series.html", "series", "series", "Serien",
 		"Lauf-Serien",
-		"Liste aller Serien von Laufveranstaltungen, Lauf-Wettkämpfen, Volksläufen im Raum Freiburg",
+		"Liste aller Serien von Laufveranstaltungen, Lauf-Wettkämpfen, Volksläufen im Raum Heidelberg",
 		breadcrumbsSeries); err != nil {
 		return fmt.Errorf("render series page: %w", err)
 	}
@@ -419,51 +402,33 @@ func (g Generator) Generate(eventsData events.Data) error {
 
 	if err := renderPage("info.html", "info.html", "info", "info", "Allgemein",
 		"Info",
-		"Kontaktmöglichkeiten, allgemeine & technische Informationen über freiburg.run",
+		"Kontaktmöglichkeiten, allgemeine & technische Informationen über heidelberg.run",
 		breadcrumbsInfo); err != nil {
 		return fmt.Errorf("render info page: %w", err)
 	}
 
 	if err := renderSubPage("datenschutz.html", "datenschutz.html", "datenschutz", "datenschutz", "Allgemein",
 		"Datenschutz",
-		"Datenschutzerklärung von freiburg.run",
+		"Datenschutzerklärung von heidelberg.run",
 		breadcrumbsInfo); err != nil {
 		return fmt.Errorf("render subpage %q: %w", "datenschutz.html", err)
 	}
 
 	if err := renderSubPage("impressum.html", "impressum.html", "impressum", "impressum", "Allgemein",
 		"Impressum",
-		"Impressum von freiburg.run",
+		"Impressum von heidelberg.run",
 		breadcrumbsInfo); err != nil {
 		return fmt.Errorf("render subpage %q: %w", "impressum.html", err)
 	}
 
-	if err := renderSubPage("support.html", "support.html", "support", "support", "Allgemein",
-		"freiburg.run unterstützen",
-		"Möglichkeiten freiburg.run zu unterstützen",
-		breadcrumbsInfo); err != nil {
-		return fmt.Errorf("render subpage %q: %w", "support.html", err)
-	}
-
 	if err := renderSubPage("404.html", "404.html", "404", "404", "",
 		"404 - Seite nicht gefunden :(",
-		"Fehlerseite von freiburg.run",
+		"Fehlerseite von heidelberg.run",
 		breadcrumbsBase); err != nil {
 		return fmt.Errorf("render subpage %q: %w", "404.html", err)
 	}
 
-	if err := renderSubPage("club/", "club/index.html", "club", "club", "Club",
-		"freiburg.run Club",
-		"freiburg.run Club - die Lauf-Community",
-		breadcrumbsBase); err != nil {
-		return fmt.Errorf("render subpage %q: %w", "club.html", err)
-	}
-
-	// Special rendering of parkrun page for wordpress
 	data := TemplateData{commondata, "", "", "", "", breadcrumbsBase, "/"}
-	if err := utils.ExecuteTemplateNoMinify("dietenbach-parkrun-wordpress", g.out.Join("dietenbach-parkrun-wordpress.html"), data.BasePath, data); err != nil {
-		return fmt.Errorf("render wordpress template: %w", err)
-	}
 
 	// Render old events lists
 	oldYearsLinks := make(map[string]*utils.Link)
@@ -582,7 +547,7 @@ func (g Generator) Generate(eventsData events.Data) error {
 	}
 	for _, tag := range eventsData.Tags {
 		tagdata.Tag = tag
-		tagdata.Description = fmt.Sprintf("Laufveranstaltungen der Kategorie '%s' im Raum Freiburg; Vollständige Übersicht mit Terminen, Details und Anmeldelinks für alle Events dieser Kategorie.", tag.Name.Orig)
+		tagdata.Description = fmt.Sprintf("Laufveranstaltungen der Kategorie '%s' im Raum Heidelberg; Vollständige Übersicht mit Terminen, Details und Anmeldelinks für alle Events dieser Kategorie.", tag.Name.Orig)
 		slug := tag.Slug()
 		tagdata.SetNameLink(tag.Name.Orig, slug, breadcrumbsTags, g.baseUrl)
 		tagdata.Title = fmt.Sprintf("Laufveranstaltungen der Kategorie '%s'", tag.Name.Orig)
@@ -640,8 +605,8 @@ func (g Generator) Generate(eventsData events.Data) error {
 	sitemapTemplate := SitemapTemplateData{
 		TemplateData{
 			commondata,
-			"Sitemap von freiburg.run",
-			"Sitemap von freiburg.run",
+			"Sitemap von heidelberg.run",
+			"Sitemap von heidelberg.run",
 			"",
 			fmt.Sprintf("%s/sitemap.html", g.baseUrl),
 			breadcrumbsBase.Push(utils.CreateLink("Sitemap", "/sitemap.html")),

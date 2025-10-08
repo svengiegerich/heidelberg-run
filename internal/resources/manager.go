@@ -3,7 +3,7 @@ package resources
 import (
 	"path/filepath"
 
-	"github.com/flopp/freiburg-run/internal/utils"
+	"github.com/svengiegerich/heidelberg-run/internal/utils"
 )
 
 type ResourceManager struct {
@@ -83,17 +83,17 @@ func (r *ResourceManager) CopyStaticAssets() {
 	}{
 		{"static/robots.txt", "robots.txt"},
 		{"static/manifest.json", "manifest.json"},
-		{"static/5vkf9hdnfkay895vyx33zdvesnyaphgv.txt", "5vkf9hdnfkay895vyx33zdvesnyaphgv.txt"},
 		{"static/512.png", "favicon.png"},
 		{"static/favicon.ico", "favicon.ico"},
 		{"static/180.png", "apple-touch-icon.png"},
 		{"static/192.png", "android-chrome-192x192.png"},
 		{"static/512.png", "android-chrome-512x512.png"},
-		{"static/freiburg-run.svg", "images/freiburg-run.svg"},
-		{"static/freiburg-run-new.svg", "images/freiburg-run-new.svg"},
-		{"static/freiburg-run-new-blue.svg", "images/freiburg-run-new-blue.svg"},
+		{"static/heidelberg-run.svg", "images/heidelberg-run.svg"},
+		{"static/heidelberg-run.svg", "images/heidelberg-run.svg"},
+		{"static/heidelberg-run-blue.svg", "images/heidelberg-run-blue.svg"},
 		{"static/512.png", "images/512.png"},
-		{"static/parkrun.png", "images/parkrun.png"},
+		{"static/marker-icon.png", "images/marker-icon.png"},
+		{"static/marker-icon-2x.png", "images/marker-icon-2x.png"},
 		{"static/marker-grey-icon.png", "images/marker-grey-icon.png"},
 		{"static/marker-grey-icon-2x.png", "images/marker-grey-icon-2x.png"},
 		{"static/marker-green-icon.png", "images/marker-green-icon.png"},
@@ -102,7 +102,6 @@ func (r *ResourceManager) CopyStaticAssets() {
 		{"static/marker-red-icon-2x.png", "images/marker-red-icon-2x.png"},
 		{"static/circle-small.png", "images/circle-small.png"},
 		{"static/circle-big.png", "images/circle-big.png"},
-		{"static/freiburg-run-flyer.pdf", "freiburg-run-flyer.pdf"},
 	}
 
 	source := utils.Path(r.SourceDir)

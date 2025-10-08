@@ -57,7 +57,7 @@ a[href^="https://"]::after
     display: inline-block;
 }
 
-a[href^="https://freiburg.run"]::after
+a[href^="https://heidelberg.run"]::after
 {
     display: none !important;
 }

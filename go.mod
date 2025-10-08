@@ -1,4 +1,4 @@
-module github.com/flopp/freiburg-run
+module github.com/svengiegerich/heidelberg-run
 
 go 1.23.0
 

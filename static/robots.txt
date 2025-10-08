@@ -7,4 +7,4 @@ Disallow:
 User-agent: facebookexternalhit
 Disallow:
 
-Sitemap: https://freiburg.run/sitemap.xml
+Sitemap: https://heidelberg.run/sitemap.xml

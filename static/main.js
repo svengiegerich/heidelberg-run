@@ -38,25 +38,25 @@ const parseGeo = function (s) {
 };
 
 const loadMap = function (id) {
-    var map = L.map(id, {gestureHandling: true}).setView([48.000548, 7.804842], 15);
+    var map = L.map(id, {gestureHandling: true}).setView([49.410038, 8.692926], 15);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    var freiburg = [47.996090, 7.849400];
-    L.circle(freiburg, {
+    var heidelberg = [49.3988, 8.6724];
+    L.circle(heidelberg, {
         color: '#3e8ed0',
         fill: false,
         weight: 1,
         radius: 25000
-    }).addTo(map).bindPopup("Freiburg, 25km");
-    L.circle(freiburg, {
+    }).addTo(map).bindPopup("Heidelberg, 25km");
+    L.circle(heidelberg, {
         color: '#3e8ed0',
         fill: false,
         weight: 1,
         radius: 50000
-    }).addTo(map).bindPopup("Freiburg, 50km")
+    }).addTo(map).bindPopup("Heidelberg, 50km")
 
     let blueIcon = load_marker("");
     let greyIcon = load_marker("grey");
@@ -119,11 +119,11 @@ const loadMap = function (id) {
     }];
     items.push(
         {
-            label: "25km um Freiburg",
+            label: "25km um Heidelberg",
             type: "image",
             url: "/images/circle-small.png"
         }, {
-            label: "50km um Freiburg",
+            label: "50km um Heidelberg",
             type: "image",
             url: "/images/circle-big.png"
         }
@@ -144,7 +144,7 @@ const loadMap = function (id) {
 };
 
 const loadParkrunMap = function (id) {
-    var map = L.map(id, {gestureHandling: true}).setView([48.000548, 7.804842], 15);
+    var map = L.map(id, {gestureHandling: true}).setView([49.401900, 8.664772], 15);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -154,17 +154,8 @@ const loadParkrunMap = function (id) {
     course.addTo(map);
 
     let blueIcon = load_marker("");
-    let greyIcon = load_marker("grey");
 
-    let parking = L.marker([48.000993,7.808887], {icon: greyIcon});
-    parking.addTo(map);
-    parking.bindPopup("Parkplatz");
-
-    let tram = L.marker([47.999420,7.810088], {icon: greyIcon});
-    tram.addTo(map);
-    tram.bindPopup("Straßenbahn (Linie 3, Rohrgraben)");
-
-    let meetingpoint = L.marker([48.001294,7.806489], {icon: blueIcon});
+    let meetingpoint = L.marker([49.401900, 8.664772], {icon: blueIcon});
     meetingpoint.addTo(map);
     meetingpoint.bindPopup("Treffpunkt / Zielbereich");
 };

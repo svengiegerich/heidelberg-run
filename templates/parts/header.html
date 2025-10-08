@@ -10,48 +10,34 @@
         <link rel="manifest" href="{{BasePath "/manifest.json"}}" />
         <meta name="theme-color" content="#4455F6">
 
-        {{if eq .Nav "parkrun"}}
-        <link rel="me" href="https://freiburg.social/@dietenbachparkrun" />
-        {{else}}
-        <link rel="me" href="https://freiburg.social/@flopp" />
-        <link rel="me" href="https://freiburg.social/@freiburg_run"/>
-        {{end}}
-
-        <!-- Open Graph / Facebook -->
+        <!-- Open Graph -->
         <meta property="og:type" content="website">
         <meta property="og:url" content="{{.Canonical}}">
-        <meta property="og:title" content="{{.NiceTitle}} - freiburg.run">
+        <meta property="og:title" content="{{.NiceTitle}} - heidelberg.run">
         <meta property="og:description" content="{{.Description}}">
         <meta property="og:image" content="{{.Image}}">
-
-        <!-- Twitter -->
-        <meta property="twitter:card" content="summary_large_image">
-        <meta property="twitter:url" content="{{.Canonical}}">
-        <meta property="twitter:title" content="{{.NiceTitle}} - freiburg.run">
-        <meta property="twitter:description" content="{{.Description}}">
-        <meta property="twitter:image" content="{{.Image}}">
 
         {{range .CssFiles}}
         <link rel="stylesheet" href="{{BasePath .}}"/>
         {{end}}
 
         {{if .BasePath}}{{else}}<script defer src="{{BasePath .Umami.Url}}" data-website-id="{{.Umami.Id}}"></script>{{end}}
+
+        <script data-goatcounter="https://heidelberg-run.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
     </head>
     <body class="has-navbar-fixed-top has-pushed-down-footer-child">
 <nav class="navbar is-fixed-top is-link">
     <div class="navbar-brand">
         <a class="navbar-item" style="padding-left:1px; padding-top: 1px; padding-bottom: 1px;" href="/">
-            <img style="height: 48px; max-height:48px" src="{{BasePath "images/freiburg-run-new.svg"}}" alt="freiburg.run logo">
+            <img style="height: 48px; max-height:48px" src="{{BasePath "images/heidelberg-run.svg"}}" alt="heidelberg.run logo">
         </a>
         <a class="navbar-item is-size-4 is-uppercase has-text-weight-bold" href="{{BasePath "/"}}">
-            freiburg.run
+            heidelberg.run
         </a>
 
         <span class="is-flex is-flex-grow-1 is-flex-direction-row-reverse p-0 is-hidden-desktop">
-            <a class="navbar-item no-external" href="https://freiburg.social/@freiburg_run" target="_blank">
-                <span class="icon"><i class="mastodon-icon"></i></span>
-            </a>
-            <a class="navbar-item no-external" href="https://www.instagram.com/freiburg.run/" target="_blank">
+            <a class="navbar-item no-external" href="https://www.instagram.com/heidelberg.run/" target="_blank">
                 <span class="icon"><i class="insta-icon"></i></span>
             </a>
             <a class="navbar-item no-external" href="{{.FeedbackFormUrl}}" target="_blank">
@@ -68,9 +54,6 @@
     </div>
     <div id="navbarMain" class="navbar-menu">
         <div class="navbar-start">
-            <a class="navbar-item {{if eq .Nav "club"}}is-active{{end}}" href="{{BasePath "/club/"}}">
-                Club
-            </a>
             <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link {{if eq .Nav "events"}}is-active{{end}}" href="{{BasePath "/"}}">
                     Veranstaltungen
@@ -89,7 +72,7 @@
                         Karte
                     </a>
                     <hr class="navbar-divider has-background-link has-text-white">
-                    <a class="navbar-item has-background-link has-text-white" href="{{.FeedbackFormUrl}}" target="_blank">
+                    <a class="navbar-item has-background-link has-text-white" href="https://docs.google.com/forms/d/e/1FAIpQLScJyKcArCSNpUnqetfbkB1xNyTiLKzteaT6gi7BPKt9ly7y6Q/viewform" target="_blank">
                         Neue Veranstaltung melden
                     </a>
                 </div>
@@ -103,18 +86,19 @@
                 Shops
             </a>
 
-            <a class="navbar-item {{if eq .Nav "parkrun"}}is-active{{end}}" href="{{BasePath "dietenbach-parkrun.html"}}">
-                parkrun
+            <a class="navbar-item {{if eq .Nav "parkrun"}}is-active{{end}}" href="https://www.parkrun.com.de/bahnstadtpromenade/">
+                Bahnstadt parkrun
             </a>
 
             <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link {{if eq .Nav "info"}}is-active{{end}}" href="{{BasePath "info.html"}}">
                     Infos
                 </a>
-                <div class="navbar-dropdown has-background-link has-text-white  is-boxed">
-                    <a class="navbar-item has-background-link has-text-white {{if eq .Nav "support"}}is-active{{end}}" href="{{BasePath "support.html"}}">
-                        Unterstützen
-                    </a>
+                <div class="navbar-dropdown has-background-link has-text-white
+                is-boxed">
+                    <a class="navbar-item has-background-link has-text-white {{if eq .Nav "support"}}is-active{{end}}" href="{{BasePath "info.html"}}">
+                    Infos
+                </a>
                     <a class="navbar-item has-background-link has-text-white {{if eq .Nav "support"}}is-active{{end}}" href="{{BasePath "impressum.html"}}">
                         Impressum
                     </a>
@@ -126,11 +110,8 @@
             <a class="navbar-item is-hidden-touch no-external" href="{{.FeedbackFormUrl}}" target="_blank">
                 <span class="icon"><i class="feedback-icon"></i></span>
             </a>
-            <a class="navbar-item is-hidden-touch no-external" href="https://www.instagram.com/freiburg.run/" target="_blank">
+            <a class="navbar-item is-hidden-touch no-external" href="https://www.instagram.com/heidelberg.run/" target="_blank">
                 <span class="icon"><i class="insta-icon"></i></span>
-            </a>
-            <a class="navbar-item is-hidden-touch no-external" href="https://freiburg.social/@freiburg_run" target="_blank">
-                <span class="icon"><i class="mastodon-icon"></i></span>
             </a>
         </div>
     </div>

@@ -7,10 +7,10 @@ import (
 	"os"
 	"time"
 
-	"github.com/flopp/freiburg-run/internal/events"
-	"github.com/flopp/freiburg-run/internal/generator"
-	"github.com/flopp/freiburg-run/internal/resources"
-	"github.com/flopp/freiburg-run/internal/utils"
+	"github.com/svengiegerich/heidelberg-run/internal/events"
+	"github.com/svengiegerich/heidelberg-run/internal/generator"
+	"github.com/svengiegerich/heidelberg-run/internal/resources"
+	"github.com/svengiegerich/heidelberg-run/internal/utils"
 )
 
 const (
@@ -70,12 +70,11 @@ func main() {
 
 	// configuration
 	out := utils.NewPath(options.outDir)
-	baseUrl := utils.Url("https://freiburg.run")
+	baseUrl := utils.Url("https://heidelberg.run")
 	basePath := options.basePath
 	sheetUrl := fmt.Sprintf("https://docs.google.com/spreadsheets/d/%s", config_data.SheetId)
 	umamiId := "6609164f-5e79-4041-b1ed-f37da10a84d2"
-	feedbackFormUrl := "https://docs.google.com/forms/d/e/1FAIpQLScJlPFYKgT5WxDaH9FDJzha5hQ2cBsqALLrVjGp7bgB-ssubA/viewform?usp=sf_link"
-
+	feedbackFormUrl := "https://forms.gle/8LrkM7J65G3mqV4B7"
 	now := time.Now()
 	today := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, now.Location())
 

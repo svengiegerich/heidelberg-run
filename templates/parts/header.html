@@ -13,7 +13,7 @@
         <!-- Open Graph -->
         <meta property="og:type" content="website">
         <meta property="og:url" content="{{.Canonical}}">
-        <meta property="og:title" content="{{.NiceTitle}} - heidelberg.run">
+        <meta property="og:title" content="{{.NiceTitle}} - {{Config.Website.Name}}">
         <meta property="og:description" content="{{.Description}}">
         <meta property="og:image" content="{{.Image}}">
 
@@ -21,29 +21,18 @@
         <link rel="stylesheet" href="{{BasePath .}}"/>
         {{end}}
 
-        {{if .BasePath}}{{else}}<script defer src="{{BasePath .Umami.Url}}" data-website-id="{{.Umami.Id}}"></script>{{end}}
-
         <script data-goatcounter="https://heidelberg-run.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
     </head>
     <body class="has-navbar-fixed-top has-pushed-down-footer-child">
 <nav class="navbar is-fixed-top is-link">
     <div class="navbar-brand">
-        <a class="navbar-item" style="padding-left:1px; padding-top: 1px; padding-bottom: 1px;" href="/">
-            <img style="height: 48px; max-height:48px" src="{{BasePath "images/heidelberg-run.svg"}}" alt="heidelberg.run logo">
+        <a class="navbar-item" style="padding-left:1px; padding-top: 1px; padding-bottom: 1px;" href="{{BasePath "/"}}">
+            <img style="height: 48px; max-height:48px" src="{{BasePath "images/heidelberg-run-new.svg"}}" alt="{{Config.Website.Name}} logo">
         </a>
         <a class="navbar-item is-size-4 is-uppercase has-text-weight-bold" href="{{BasePath "/"}}">
-            heidelberg.run
+            {{Config.Website.Name}}
         </a>
-
-        <span class="is-flex is-flex-grow-1 is-flex-direction-row-reverse p-0 is-hidden-desktop">
-            <a class="navbar-item no-external" href="https://www.instagram.com/heidelberg.run/" target="_blank">
-                <span class="icon"><i class="insta-icon"></i></span>
-            </a>
-            <a class="navbar-item no-external" href="{{.FeedbackFormUrl}}" target="_blank">
-                <span class="icon"><i class="feedback-icon"></i></span>
-            </a>
-        </span>
 
         <a role="button" class="navbar-burger has-text-white" data-target="navbarMain">
             <span aria-hidden="true"></span>
@@ -72,7 +61,7 @@
                         Karte
                     </a>
                     <hr class="navbar-divider has-background-link has-text-white">
-                    <a class="navbar-item has-background-link has-text-white" href="https://docs.google.com/forms/d/e/1FAIpQLScJyKcArCSNpUnqetfbkB1xNyTiLKzteaT6gi7BPKt9ly7y6Q/viewform" target="_blank">
+                    <a class="navbar-item has-background-link has-text-white" href="{{Config.Contact.FeedbackForm}}" target="_blank">
                         Neue Veranstaltung melden
                     </a>
                 </div>
@@ -107,12 +96,15 @@
                     </a>
                 </div>
             </div>
-            <a class="navbar-item is-hidden-touch no-external" href="{{.FeedbackFormUrl}}" target="_blank">
+            <a class="navbar-item no-external" href="{{Config.Contact.FeedbackForm}}" target="_blank">
                 <span class="icon"><i class="feedback-icon"></i></span>
             </a>
-            <a class="navbar-item is-hidden-touch no-external" href="https://www.instagram.com/heidelberg.run/" target="_blank">
+            {{if Config.Contact.Instagram}}<a class="navbar-item no-external" href="{{Config.Contact.Instagram}}" target="_blank">
                 <span class="icon"><i class="insta-icon"></i></span>
-            </a>
+            </a>{{end}}
+            {{if Config.Contact.Mastodon}}<a class="navbar-item no-external" href="{{Config.Contact.Mastodon}}" target="_blank">
+                <span class="icon"><i class="mastodon-icon"></i></span>
+            </a>{{end}}
         </div>
     </div>
 </nav>

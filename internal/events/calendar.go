@@ -8,6 +8,7 @@ import (
 	"time"
 
 	ical "github.com/arran4/golang-ical"
+	"github.com/svengiegerich/heidelberg-run/internal/config"
 	"github.com/svengiegerich/heidelberg-run/internal/utils"
 )
 
@@ -21,15 +22,15 @@ const (
 	componentPropertyDtEnd   = ical.ComponentProperty(propertyDtEnd)
 )
 
-func CreateEventCalendar(event *Event, now time.Time, baseUrl utils.Url, calendarUrl string, path string) error {
+func CreateEventCalendar(config config.Config, event *Event, now time.Time, baseUrl utils.Url, calendarUrl string, path string) error {
 	infoUrl := baseUrl.Join(event.Slug())
 	endPlusOneDay := event.Time.To.AddDate(0, 0, 1)
 
 	// ical/ics data
 	cal := ical.NewCalendar()
-	cal.SetProductId("Laufevents - heidelberg.run")
+	cal.SetProductId(fmt.Sprintf("Laufevents - %s", config.Website.Name))
 	cal.SetMethod(ical.MethodPublish)
-	cal.SetDescription("Liste aller Laufevents im Raum Heidelberg (und Umkreis)")
+	cal.SetDescription(fmt.Sprintf("Liste aller Laufevents im Raum %s (50km Umkreis)", config.City.Name))
 	///cal.SetUrl(calendarUrl)
 	uid, err := event.GetUUID()
 	if err != nil {
@@ -53,18 +54,18 @@ func CreateEventCalendar(event *Event, now time.Time, baseUrl utils.Url, calenda
 		url.QueryEscape(event.Name.Orig),
 		event.Time.From.Format(dateFormatUtc),
 		endPlusOneDay.Format(dateFormatUtc),
-		url.QueryEscape(fmt.Sprintf(`%s<br>Infos: <a href="%s">heidelberg.run</a>`, event.Details, infoUrl)),
+		url.QueryEscape(fmt.Sprintf(`%s<br>Infos: <a href="%s">%s</a>`, event.Details, infoUrl, config.Website.Name)),
 		url.QueryEscape(event.Location.NameNoFlag()),
 	)
 
 	return nil
 }
 
-func CreateCalendar(eventsList []*Event, now time.Time, baseUrl utils.Url, calendarUrl string, path string) error {
+func CreateCalendar(config config.Config, eventsList []*Event, now time.Time, baseUrl utils.Url, calendarUrl string, path string) error {
 	cal := ical.NewCalendar()
-	cal.SetProductId("Laufevents - heidelberg.run")
+	cal.SetProductId(fmt.Sprintf("Laufevents - %s", config.Website.Name))
 	cal.SetMethod(ical.MethodPublish)
-	cal.SetDescription("Liste aller Laufevents im Raum Heidelberg (50km Umkreis)")
+	cal.SetDescription(fmt.Sprintf("Liste aller Laufevents im Raum %s (50km Umkreis)", config.City.Name))
 	cal.SetUrl(calendarUrl)
 
 	for _, e := range eventsList {

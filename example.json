@@ -1,0 +1,31 @@
+{
+    "website": {
+        "name": "berlin.run"
+    },
+    "city": {
+        "name": "Berlin",
+        "lat": 52.520008,
+        "lon": 13.404954
+    },
+    "contact": {
+        "instagram": "YOUR_INSTAGRAM_HERE (OPTIONAL)",
+        "mastodon": "YOUR_MASTODON_HERE (OPTIONAL)"
+    },
+    "footer_links": [
+        {
+            "name": "Laufveranstaltungen in Freiburg",
+            "url": "https://freiburg.run/"
+        },
+        {
+            "name": "Laufveranstaltungen in Heidelberg",
+            "url": "https://heidelberg.run"
+        }
+    ],
+    "google": {
+        "api_key": "YOUR_API_KEY_HERE",
+        "sheet_id": "YOUR_SHEET_ID_HERE"
+    },
+    "umami": {
+        "website_id": "YOUR_UMAMI_WEBSITE_ID (OPTIONAL)"
+    }
+}

@@ -7,6 +7,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/svengiegerich/heidelberg-run/internal/config"
 	"github.com/svengiegerich/heidelberg-run/internal/events"
 	"github.com/svengiegerich/heidelberg-run/internal/generator"
 	"github.com/svengiegerich/heidelberg-run/internal/resources"
@@ -72,9 +73,7 @@ func main() {
 	out := utils.NewPath(options.outDir)
 	baseUrl := utils.Url("https://heidelberg.run")
 	basePath := options.basePath
-	sheetUrl := fmt.Sprintf("https://docs.google.com/spreadsheets/d/%s", config_data.SheetId)
-	umamiId := "6609164f-5e79-4041-b1ed-f37da10a84d2"
-	feedbackFormUrl := "https://forms.gle/8LrkM7J65G3mqV4B7"
+
 	now := time.Now()
 	today := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, now.Location())
 

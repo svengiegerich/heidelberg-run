@@ -6,27 +6,22 @@ import (
 	"strings"
 	"time"
 
+	"github.com/svengiegerich/heidelberg-run/internal/config"
 	"github.com/svengiegerich/heidelberg-run/internal/events"
 	"github.com/svengiegerich/heidelberg-run/internal/resources"
 	"github.com/svengiegerich/heidelberg-run/internal/utils"
 )
 
-type UmamiData struct {
-	Url string
-	Id  string
-}
-
 type CommonData struct {
-	Timestamp       string
-	TimestampFull   string
-	BaseUrl         string
-	BasePath        string
-	FeedbackFormUrl string // URL for feedback form
-	SheetUrl        string
-	Data            *events.Data
-	JsFiles         []string
-	CssFiles        []string
-	Umami           UmamiData
+	Config        config.Config
+	Timestamp     string
+	TimestampFull string
+	BaseUrl       string
+	BasePath      string
+	Data          *events.Data
+	JsFiles       []string
+	CssFiles      []string
+	UmamiScript   string
 }
 
 type TemplateData struct {
@@ -191,7 +186,7 @@ type CountryData struct {
 	events []*events.Event
 }
 
-func renderEmbedList(baseUrl utils.Url, out utils.Path, data TemplateData, tag *events.Tag) error {
+func renderEmbedList(config config.Config, baseUrl utils.Url, out utils.Path, data TemplateData, tag *events.Tag) error {
 	countryData := map[string]*CountryData{
 		"":           {"embed/trailrun-de.html", make([]*events.Event, 0)}, // Default (Germany)
 		"Frankreich": {"embed/trailrun-fr.html", make([]*events.Event, 0)},
@@ -217,7 +212,7 @@ func renderEmbedList(baseUrl utils.Url, out utils.Path, data TemplateData, tag *
 			Events:       d.events,
 		}
 		t.Canonical = baseUrl.Join(d.slug)
-		if err := utils.ExecuteTemplate("embed-list", out.Join(d.slug), t.BasePath, t); err != nil {
+		if err := utils.ExecuteTemplate(config, "embed-list", out.Join(d.slug), t.BasePath, t); err != nil {
 			return fmt.Errorf("render embed list for %q: %w", d.slug, err)
 		}
 	}
@@ -226,44 +221,40 @@ func renderEmbedList(baseUrl utils.Url, out utils.Path, data TemplateData, tag *
 }
 
 type Generator struct {
-	out             utils.Path
-	baseUrl         utils.Url
-	basePath        string
-	now             time.Time
-	timestamp       string
-	timestampFull   string
-	jsFiles         []string
-	cssFiles        []string
-	umamiScript     string
-	umamiId         string
-	feedbackFormUrl string
-	sheetUrl        string
-	hashFile        string
+	config        config.Config
+	out           utils.Path
+	baseUrl       utils.Url
+	basePath      string
+	now           time.Time
+	timestamp     string
+	timestampFull string
+	jsFiles       []string
+	cssFiles      []string
+	umamiScript   string
+	hashFile      string
 }
 
 func NewGenerator(
+	config config.Config,
 	out utils.Path,
 	baseUrl utils.Url, basePath string,
 	now time.Time,
 	jsFiles []string, cssFiles []string,
-	umamiScript string, umamiId string,
-	feedbackFormUrl string, sheetUrl string,
+	umamiScript string,
 	hashFile string,
 ) Generator {
 	return Generator{
-		out:             out,
-		baseUrl:         baseUrl,
-		basePath:        basePath,
-		now:             now,
-		timestamp:       now.Format("2006-01-02"),
-		timestampFull:   now.Format("2006-01-02 15:04:05"),
-		jsFiles:         jsFiles,
-		cssFiles:        cssFiles,
-		umamiScript:     umamiScript,
-		umamiId:         umamiId,
-		feedbackFormUrl: feedbackFormUrl,
-		sheetUrl:        sheetUrl,
-		hashFile:        hashFile,
+		config:        config,
+		out:           out,
+		baseUrl:       baseUrl,
+		basePath:      basePath,
+		now:           now,
+		timestamp:     now.Format("2006-01-02"),
+		timestampFull: now.Format("2006-01-02 15:04:05"),
+		jsFiles:       jsFiles,
+		cssFiles:      cssFiles,
+		umamiScript:   umamiScript,
+		hashFile:      hashFile,
 	}
 }
 
@@ -280,7 +271,7 @@ func (g Generator) Generate(eventsData events.Data) error {
 				continue
 			}
 			calendar := event.CalendarSlug()
-			if err := events.CreateEventCalendar(event, g.now, g.baseUrl, g.baseUrl.Join(calendar), g.out.Join(calendar)); err != nil {
+			if err := events.CreateEventCalendar(g.config, event, g.now, g.baseUrl, g.baseUrl.Join(calendar), g.out.Join(calendar)); err != nil {
 				return fmt.Errorf("create event calendar: %v", err)
 			}
 			event.Calendar = "/" + calendar
@@ -297,7 +288,7 @@ func (g Generator) Generate(eventsData events.Data) error {
 	*/
 
 	// Create calendar files for all upcoming events
-	if err := events.CreateCalendar(eventsData.Events, g.now, g.baseUrl, g.baseUrl.Join("events.ics"), g.out.Join("events.ics")); err != nil {
+	if err := events.CreateCalendar(g.config, eventsData.Events, g.now, g.baseUrl, g.baseUrl.Join("events.ics"), g.out.Join("events.ics")); err != nil {
 		return fmt.Errorf("create events.ics: %v", err)
 	}
 
@@ -310,7 +301,7 @@ func (g Generator) Generate(eventsData events.Data) error {
 	sitemap.AddCategory("Lauftreffs")
 	sitemap.AddCategory("Lauf-Shops")
 
-	breadcrumbsBase := utils.InitBreadcrumbs(utils.CreateLink("heidelberg.run", "/"))
+	breadcrumbsBase := utils.InitBreadcrumbs(utils.CreateLink(g.config.Website.Name, "/"))
 	breadcrumbsEvents := breadcrumbsBase.Push(utils.CreateLink("Laufveranstaltungen", "/"))
 	breadcrumbsTags := breadcrumbsEvents.Push(utils.CreateLink("Kategorien", "/tags.html"))
 	breadcrumbsSeries := breadcrumbsEvents.Push(utils.CreateLink("Serien", "/series.html"))
@@ -319,19 +310,15 @@ func (g Generator) Generate(eventsData events.Data) error {
 	breadcrumbsInfo := breadcrumbsBase.Push(utils.CreateLink("Info", "/info.html"))
 
 	commondata := CommonData{
+		g.config,
 		g.timestamp,
 		g.timestampFull,
 		string(g.baseUrl),
 		g.basePath,
-		g.feedbackFormUrl,
-		g.sheetUrl,
 		&eventsData,
 		resourceManager.JsFiles,
 		resourceManager.CssFiles,
-		UmamiData{
-			resourceManager.UmamiScript,
-			g.umamiId,
-		},
+		resourceManager.UmamiScript,
 	}
 
 	// Render general pages
@@ -345,7 +332,7 @@ func (g Generator) Generate(eventsData events.Data) error {
 			breadcrumbs,
 			"/",
 		}
-		if err := utils.ExecuteTemplate(template, g.out.Join(slugFile), data.BasePath, data); err != nil {
+		if err := utils.ExecuteTemplate(g.config, template, g.out.Join(slugFile), data.BasePath, data); err != nil {
 			return fmt.Errorf("render template %q to %q: %w", template, g.out.Join(slugFile), err)
 		}
 		if template != "404" {
@@ -359,36 +346,36 @@ func (g Generator) Generate(eventsData events.Data) error {
 	}
 
 	if err := renderPage("", "index.html", "events", "events", "Laufveranstaltungen",
-		"Laufveranstaltungen im Raum Heidelberg",
-		"Liste von Laufveranstaltungen, Lauf-Wettkämpfen, Volksläufen im Raum Heidelberg",
+		fmt.Sprintf("Laufveranstaltungen im Raum %s", g.config.City.Name),
+		fmt.Sprintf("Liste von Laufveranstaltungen, Lauf-Wettkämpfen, Volksläufen im Raum %s", g.config.City.Name),
 		breadcrumbsEvents); err != nil {
 		return fmt.Errorf("render index page: %w", err)
 	}
 
 	if err := renderPage("tags.html", "tags.html", "tags", "tags", "Kategorien",
 		"Kategorien",
-		"Liste aller Kategorien von Laufveranstaltungen, Lauf-Wettkämpfen, Volksläufen im Raum Heidelberg",
+		fmt.Sprintf("Liste aller Kategorien von Laufveranstaltungen, Lauf-Wettkämpfen, Volksläufen im Raum %s", g.config.City.Name),
 		breadcrumbsTags); err != nil {
 		return fmt.Errorf("render tags page: %w", err)
 	}
 
 	if err := renderPage("lauftreffs.html", "lauftreffs.html", "groups", "groups", "Lauftreffs",
-		"Lauftreffs im Raum Heidelberg",
-		"Liste von Lauftreffs, Laufgruppen, Lauf-Trainingsgruppen im Raum Heidelberg",
+		fmt.Sprintf("Lauftreffs im Raum %s", g.config.City.Name),
+		fmt.Sprintf("Liste von Lauftreffs, Laufgruppen, Lauf-Trainingsgruppen im Raum %s", g.config.City.Name),
 		breadcrumbsGroups); err != nil {
 		return fmt.Errorf("render groups page: %w", err)
 	}
 
 	if err := renderPage("shops.html", "shops.html", "shops", "shops", "Lauf-Shops",
-		"Lauf-Shops im Raum Heidelberg",
-		"Liste von Lauf-Shops und Einzelhandelsgeschäften mit Laufschuh-Auswahl im Raum Heidelberg",
+		fmt.Sprintf("Lauf-Shops im Raum %s", g.config.City.Name),
+		fmt.Sprintf("Liste von Lauf-Shops und Einzelhandelsgeschäften mit Laufschuh-Auswahl im Raum %s", g.config.City.Name),
 		breadcrumbsShops); err != nil {
 		return fmt.Errorf("render shops page: %w", err)
 	}
 	
 	if err := renderPage("series.html", "series.html", "series", "series", "Serien",
 		"Lauf-Serien",
-		"Liste aller Serien von Laufveranstaltungen, Lauf-Wettkämpfen, Volksläufen im Raum Heidelberg",
+		fmt.Sprintf("Liste aller Serien von Laufveranstaltungen, Lauf-Wettkämpfen, Volksläufen im Raum %s", g.config.City.Name),
 		breadcrumbsSeries); err != nil {
 		return fmt.Errorf("render series page: %w", err)
 	}
@@ -402,33 +389,51 @@ func (g Generator) Generate(eventsData events.Data) error {
 
 	if err := renderPage("info.html", "info.html", "info", "info", "Allgemein",
 		"Info",
-		"Kontaktmöglichkeiten, allgemeine & technische Informationen über heidelberg.run",
+		fmt.Sprintf("Kontaktmöglichkeiten, allgemeine & technische Informationen über %s", g.config.Website.Name),
 		breadcrumbsInfo); err != nil {
 		return fmt.Errorf("render info page: %w", err)
 	}
 
 	if err := renderSubPage("datenschutz.html", "datenschutz.html", "datenschutz", "datenschutz", "Allgemein",
 		"Datenschutz",
-		"Datenschutzerklärung von heidelberg.run",
+		fmt.Sprintf("Datenschutzerklärung von %s", g.config.Website.Name),
 		breadcrumbsInfo); err != nil {
 		return fmt.Errorf("render subpage %q: %w", "datenschutz.html", err)
 	}
 
 	if err := renderSubPage("impressum.html", "impressum.html", "impressum", "impressum", "Allgemein",
 		"Impressum",
-		"Impressum von heidelberg.run",
+		fmt.Sprintf("Impressum von %s", g.config.Website.Name),
 		breadcrumbsInfo); err != nil {
 		return fmt.Errorf("render subpage %q: %w", "impressum.html", err)
 	}
 
+	if err := renderSubPage("support.html", "support.html", "support", "support", "Allgemein",
+		fmt.Sprintf("%s unterstützen", g.config.Website.Name),
+		fmt.Sprintf("Möglichkeiten %s zu unterstützen", g.config.Website.Name),
+		breadcrumbsInfo); err != nil {
+		return fmt.Errorf("render subpage %q: %w", "support.html", err)
+	}
+
 	if err := renderSubPage("404.html", "404.html", "404", "404", "",
 		"404 - Seite nicht gefunden :(",
-		"Fehlerseite von heidelberg.run",
+		fmt.Sprintf("Fehlerseite von %s", g.config.Website.Name),
 		breadcrumbsBase); err != nil {
 		return fmt.Errorf("render subpage %q: %w", "404.html", err)
 	}
 
+	if err := renderSubPage("club/", "club/index.html", "club", "club", "Club",
+		fmt.Sprintf("%s Club", g.config.Website.Name),
+		fmt.Sprintf("%s Club - die Lauf-Community", g.config.Website.Name),
+		breadcrumbsBase); err != nil {
+		return fmt.Errorf("render subpage %q: %w", "club.html", err)
+	}
+
+	// Special rendering of parkrun page for wordpress
 	data := TemplateData{commondata, "", "", "", "", breadcrumbsBase, "/"}
+	if err := utils.ExecuteTemplateNoMinify(g.config, "dietenbach-parkrun-wordpress", g.out.Join("dietenbach-parkrun-wordpress.html"), data.BasePath, data); err != nil {
+		return fmt.Errorf("render wordpress template: %w", err)
+	}
 
 	// Render old events lists
 	oldYearsLinks := make(map[string]*utils.Link)
@@ -469,7 +474,7 @@ func (g Generator) Generate(eventsData events.Data) error {
 		}
 		data.SetNameLink(name, fname, breadcrumbsEvents, g.baseUrl)
 
-		if err := utils.ExecuteTemplate("events-old", g.out.Join(fname), data.BasePath, data); err != nil {
+		if err := utils.ExecuteTemplate(g.config, "events-old", g.out.Join(fname), data.BasePath, data); err != nil {
 			return fmt.Errorf("render old events template for %q: %w", oldEvents.Year, err)
 		}
 		sitemap.Add(fname, fname, name, "Vergangene Laufveranstaltungen")
@@ -512,7 +517,7 @@ func (g Generator) Generate(eventsData events.Data) error {
 				name = event.Meta.SeoTitle
 			}
 			eventdata.SetNameLink(name, slug, parentBreadcrumbs, g.baseUrl)
-			if err := utils.ExecuteTemplate("event", g.out.Join(fileSlug), eventdata.BasePath, eventdata); err != nil {
+			if err := utils.ExecuteTemplate(g.config, "event", g.out.Join(fileSlug), eventdata.BasePath, eventdata); err != nil {
 				return fmt.Errorf("render event template to %q: %w", g.out.Join(fileSlug), err)
 			}
 			sitemap.Add(slug, fileSlug, event.Name.Orig, sitemapCategory)
@@ -547,11 +552,11 @@ func (g Generator) Generate(eventsData events.Data) error {
 	}
 	for _, tag := range eventsData.Tags {
 		tagdata.Tag = tag
-		tagdata.Description = fmt.Sprintf("Laufveranstaltungen der Kategorie '%s' im Raum Heidelberg; Vollständige Übersicht mit Terminen, Details und Anmeldelinks für alle Events dieser Kategorie.", tag.Name.Orig)
+		tagdata.Description = fmt.Sprintf("Laufveranstaltungen der Kategorie '%s' im Raum %s; Vollständige Übersicht mit Terminen, Details und Anmeldelinks für alle Events dieser Kategorie.", tag.Name.Orig, g.config.City.Name)
 		slug := tag.Slug()
 		tagdata.SetNameLink(tag.Name.Orig, slug, breadcrumbsTags, g.baseUrl)
 		tagdata.Title = fmt.Sprintf("Laufveranstaltungen der Kategorie '%s'", tag.Name.Orig)
-		if err := utils.ExecuteTemplate("tag", g.out.Join(slug), tagdata.BasePath, tagdata); err != nil {
+		if err := utils.ExecuteTemplate(g.config, "tag", g.out.Join(slug), tagdata.BasePath, tagdata); err != nil {
 			return fmt.Errorf("render tag template to %q: %w", g.out.Join(slug), err)
 		}
 		sitemap.Add(slug, slug, tag.Name.Orig, "Kategorien")
@@ -560,7 +565,7 @@ func (g Generator) Generate(eventsData events.Data) error {
 	// Special rendering of the "traillauf" tag
 	for _, tag := range eventsData.Tags {
 		if tag.Name.Sanitized == "traillauf" {
-			if err := renderEmbedList(g.baseUrl, g.out, data, tag); err != nil {
+			if err := renderEmbedList(g.config, g.baseUrl, g.out, data, tag); err != nil {
 				return fmt.Errorf("create embed lists: %v", err)
 			}
 			break
@@ -586,7 +591,7 @@ func (g Generator) Generate(eventsData events.Data) error {
 			seriedata.Description = fmt.Sprintf("Lauf-Serie '%s'", s.Name)
 			slug := s.Slug()
 			seriedata.SetNameLink(s.Name.Orig, slug, breadcrumbsSeries, g.baseUrl)
-			if err := utils.ExecuteTemplate("serie", g.out.Join(slug), seriedata.BasePath, seriedata); err != nil {
+			if err := utils.ExecuteTemplate(g.config, "serie", g.out.Join(slug), seriedata.BasePath, seriedata); err != nil {
 				return fmt.Errorf("render serie template to %q: %w", g.out.Join(slug), err)
 			}
 			sitemap.Add(slug, slug, s.Name.Orig, "Serien")
@@ -605,8 +610,8 @@ func (g Generator) Generate(eventsData events.Data) error {
 	sitemapTemplate := SitemapTemplateData{
 		TemplateData{
 			commondata,
-			"Sitemap von heidelberg.run",
-			"Sitemap von heidelberg.run",
+			fmt.Sprintf("Sitemap von %s", g.config.Website.Name),
+			fmt.Sprintf("Sitemap von %s", g.config.Website.Name),
 			"",
 			fmt.Sprintf("%s/sitemap.html", g.baseUrl),
 			breadcrumbsBase.Push(utils.CreateLink("Sitemap", "/sitemap.html")),
@@ -614,7 +619,7 @@ func (g Generator) Generate(eventsData events.Data) error {
 		},
 		sitemap.GenHTML(),
 	}
-	if err := utils.ExecuteTemplate("sitemap", g.out.Join("sitemap.html"), sitemapTemplate.BasePath, sitemapTemplate); err != nil {
+	if err := utils.ExecuteTemplate(g.config, "sitemap", g.out.Join("sitemap.html"), sitemapTemplate.BasePath, sitemapTemplate); err != nil {
 		return fmt.Errorf("render sitemap template to %q: %w", g.out.Join("sitemap.html"), err)
 	}
 

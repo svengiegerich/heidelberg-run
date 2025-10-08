@@ -92,6 +92,8 @@ func (r *ResourceManager) CopyStaticAssets() {
 		{"static/heidelberg-run.svg", "images/heidelberg-run.svg"},
 		{"static/heidelberg-run-blue.svg", "images/heidelberg-run-blue.svg"},
 		{"static/512.png", "images/512.png"},
+		{"static/marker-icon.png", "images/marker-icon.png"},
+		{"static/marker-icon-2x.png", "images/marker-icon-2x.png"},
 		{"static/marker-grey-icon.png", "images/marker-grey-icon.png"},
 		{"static/marker-grey-icon-2x.png", "images/marker-grey-icon-2x.png"},
 		{"static/marker-green-icon.png", "images/marker-green-icon.png"},

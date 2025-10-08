@@ -30,13 +30,16 @@
 <nav class="navbar is-fixed-top is-link">
     <div class="navbar-brand">
         <a class="navbar-item" style="padding-left:1px; padding-top: 1px; padding-bottom: 1px;" href="/">
-            <img style="height: 48px; max-height:48px" src="{{BasePath "/images/heidelberg-run.svg"}}" alt="heidelberg.run logo">
+            <img style="height: 48px; max-height:48px" src="{{BasePath "images/heidelberg-run.svg"}}" alt="heidelberg.run logo">
         </a>
         <a class="navbar-item is-size-4 is-uppercase has-text-weight-bold" href="{{BasePath "/"}}">
             heidelberg.run
         </a>
 
         <span class="is-flex is-flex-grow-1 is-flex-direction-row-reverse p-0 is-hidden-desktop">
+            <a class="navbar-item no-external" href="https://www.instagram.com/heidelberg.run/" target="_blank">
+                <span class="icon"><i class="insta-icon"></i></span>
+            </a>
             <a class="navbar-item no-external" href="{{.FeedbackFormUrl}}" target="_blank">
                 <span class="icon"><i class="feedback-icon"></i></span>
             </a>
@@ -106,6 +109,9 @@
             </div>
             <a class="navbar-item is-hidden-touch no-external" href="{{.FeedbackFormUrl}}" target="_blank">
                 <span class="icon"><i class="feedback-icon"></i></span>
+            </a>
+            <a class="navbar-item is-hidden-touch no-external" href="https://www.instagram.com/heidelberg.run/" target="_blank">
+                <span class="icon"><i class="insta-icon"></i></span>
             </a>
         </div>
     </div>

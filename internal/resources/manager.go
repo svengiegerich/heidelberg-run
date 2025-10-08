@@ -70,9 +70,9 @@ func (r *ResourceManager) CopyExternalAssets() {
 	r.CssFiles = append(r.CssFiles, r.CopyHashErr(static.Join("style.css"), "style-HASH.css"))
 
 	// Images
-	r.CopyHashErr(vendor.Join("leaflet", "marker-icon.png"), filepath.Join(r.TargetDir, "/images/marker-icon.png"))
-	r.CopyHashErr(vendor.Join("leaflet", "marker-icon-2x.png"), filepath.Join(r.TargetDir, "/images/marker-icon-2x.png"))
-	r.CopyHashErr(vendor.Join("leaflet", "marker-shadow.png"), filepath.Join(r.TargetDir, "/images/marker-shadow.png"))
+	r.CopyHashErr(vendor.Join("leaflet", "marker-icon.png"), filepath.Join(r.TargetDir, "images/marker-icon.png"))
+	r.CopyHashErr(vendor.Join("leaflet", "marker-icon-2x.png"), filepath.Join(r.TargetDir, "images/marker-icon-2x.png"))
+	r.CopyHashErr(vendor.Join("leaflet", "marker-shadow.png"), filepath.Join(r.TargetDir, "images/marker-shadow.png"))
 }
 
 func (r *ResourceManager) CopyStaticAssets() {
@@ -88,20 +88,18 @@ func (r *ResourceManager) CopyStaticAssets() {
 		{"static/180.png", "apple-touch-icon.png"},
 		{"static/192.png", "android-chrome-192x192.png"},
 		{"static/512.png", "android-chrome-512x512.png"},
-		{"static/heidelberg-run.svg", "/images/heidelberg-run.svg"},
-		{"static/heidelberg-run.svg", "/images/heidelberg-run.svg"},
-		{"static/heidelberg-run-blue.svg", "/images/heidelberg-run-blue.svg"},
-		{"static/512.png", "/images/512.png"},
-		{"static/marker-icon.png", "/images/marker-icon.png"},
-		{"static/marker-icon-2x.png", "/images/marker-icon-2x.png"},
-		{"static/marker-grey-icon.png", "/images/marker-grey-icon.png"},
-		{"static/marker-grey-icon-2x.png", "/images/marker-grey-icon-2x.png"},
-		{"static/marker-green-icon.png", "/images/marker-green-icon.png"},
-		{"static/marker-green-icon-2x.png", "/images/marker-green-icon-2x.png"},
-		{"static/marker-red-icon.png", "/images/marker-red-icon.png"},
-		{"static/marker-red-icon-2x.png", "/images/marker-red-icon-2x.png"},
-		{"static/circle-small.png", "/images/circle-small.png"},
-		{"static/circle-big.png", "/images/circle-big.png"},
+		{"static/heidelberg-run.svg", "images/heidelberg-run.svg"},
+		{"static/heidelberg-run.svg", "images/heidelberg-run.svg"},
+		{"static/heidelberg-run-blue.svg", "images/heidelberg-run-blue.svg"},
+		{"static/512.png", "images/512.png"},
+		{"static/marker-grey-icon.png", "images/marker-grey-icon.png"},
+		{"static/marker-grey-icon-2x.png", "images/marker-grey-icon-2x.png"},
+		{"static/marker-green-icon.png", "images/marker-green-icon.png"},
+		{"static/marker-green-icon-2x.png", "images/marker-green-icon-2x.png"},
+		{"static/marker-red-icon.png", "images/marker-red-icon.png"},
+		{"static/marker-red-icon-2x.png", "images/marker-red-icon-2x.png"},
+		{"static/circle-small.png", "images/circle-small.png"},
+		{"static/circle-big.png", "images/circle-big.png"},
 	}
 
 	source := utils.Path(r.SourceDir)

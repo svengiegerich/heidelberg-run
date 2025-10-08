@@ -74,9 +74,9 @@ func main() {
 	// download leaflet
 	MustDownload(leafletUrl.Join("leaflet.min.css"), vendorDir.Join("leaflet", "leaflet.css"))
 	MustDownload(leafletUrl.Join("leaflet.min.js"), vendorDir.Join("leaflet", "leaflet.js"))
-	MustDownload(leafletUrl.Join("/images/marker-icon.png"), vendorDir.Join("leaflet", "marker-icon.png"))
-	MustDownload(leafletUrl.Join("/images/marker-icon-2x.png"), vendorDir.Join("leaflet", "marker-icon-2x.png"))
-	MustDownload(leafletUrl.Join("/images/marker-shadow.png"), vendorDir.Join("leaflet", "marker-shadow.png"))
+	MustDownload(leafletUrl.Join("images/marker-icon.png"), vendorDir.Join("leaflet", "marker-icon.png"))
+	MustDownload(leafletUrl.Join("images/marker-icon-2x.png"), vendorDir.Join("leaflet", "marker-icon-2x.png"))
+	MustDownload(leafletUrl.Join("images/marker-shadow.png"), vendorDir.Join("leaflet", "marker-shadow.png"))
 
 	// download leaflet-gesture-handling
 	MustDownload(leafletGestureHandlingUrl.Join("dist/leaflet-gesture-handling.min.js"), vendorDir.Join("leaflet-gesture-handling", "leaflet-gesture-handling.js"))

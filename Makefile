@@ -1,3 +1,8 @@
+.phony: backup
+backup:
+	@mkdir -p backup-data
+	@go run cmd/backup/main.go -config config.json -output backup-data/$(shell date +%Y-%m-%d).ods
+
 .phony: update-vendor
 update-vendor:
 	@go run cmd/vendor-update/main.go -dir external-files
